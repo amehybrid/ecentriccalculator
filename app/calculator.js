@@ -135,10 +135,10 @@ function precision(a) {
 */
 function getResult(a) {
   // follow PEMDAS
-  // Parentheses
-  // Exponents
-  // Multiplication and Division (from left to right)
-  // Addition and Subtraction (from left to right)
+  // 1. Parentheses
+  // 2. Exponents
+  // 3. Multiplication and Division (from left to right)
+  // 4. Addition and Subtraction (from left to right)
   console.log('getResult of');
   console.log(a);
 
@@ -148,7 +148,7 @@ function getResult(a) {
   // process same order parentheses
   while (paren1Index > -1) {
     // find pair
-    let paren2Index = a.length; //default
+    let paren2Index = a.length; // default
     let parenLevel = 1;
     for (let i = paren1Index + 1; i < a.length; i++) {
       if (a[i] === '(') {
@@ -159,7 +159,7 @@ function getResult(a) {
           break;
         }
       }
-    }  
+    }
 
     console.log('paren2Index is ' + paren2Index);
 
@@ -185,16 +185,13 @@ function getResult(a) {
     }
   }
 
-  // by this point same order parenthesis should have been resolved.
+  // at this point same order parenthesis should have been resolved.
   // Proceeding with same order exponents
 
   let exp1Index = a.indexOf('^');
 
   // process same order exponents
   while (exp1Index > -1) {
-    // ^ check if exponent operator has a number before
-    // and after
-
     // get exponent result
     const exResult = exponent( a[exp1Index - 1], a[exp1Index + 1] );
 
@@ -206,122 +203,83 @@ function getResult(a) {
     exp1Index = a.indexOf('^');
   }
 
-  // by this point same order exponents should have been resolved.
+  // at this point same order exponents should have been resolved.
   // Proceeding with same order multiplication and division
 
-  let multIndex = a.indexOf('*');
-  let divIndex = a.indexOf('/');
-  let mdIndex = null;
-  let mdOperation = null;
-
-  // ignore index if not found
-  if ((multIndex > -1) || (divIndex > -1)) {
-    if (multIndex === -1) {
-      mdIndex = divIndex;
-      mdOperation = 'division';
-    } else if (divIndex === -1) {
-      mdIndex = multIndex;
-      mdOperation = 'multiplication';
-    } else {
-      mdIndex = multIndex < divIndex ? multIndex : divIndex;
-      mdOperation = multIndex < divIndex ? 'multiplication' : 'division';
+  /**
+   * Determine next index and operation
+   * @param {number} index1 - index of next operation1
+   * @param {string} operation1 - name of operation2
+   * @param {number} index2 - index of next operation2
+   * @param {string} operation2 - name of operation1
+   * @return {object} - result
+  */
+  function determineNext(index1, operation1, index2, operation2) {
+    let index = null;
+    let operation = null;
+    if ((index1 > -1) || (index2 > -1)) {
+      if (index1 === -1) {
+        index = index2;
+        operation = operation2;
+      } else if (index2 === -1) {
+        index = index1;
+        operation = operation1;
+      } else {
+        index = index1 < index2 ? index1 : index2;
+        operation = index1 < index2 ? operation1 : operation2;
+      };
     }
+    return {
+      index: index,
+      operation: operation,
+    };
   }
 
-  while (mdIndex !== null) {
+  let next = determineNext(a.indexOf('*'),
+      'multiplication', a.indexOf('/'), 'division');
+  while (next.index !== null) {
     // get Result of Operation
     let mdResult = null;
-    if (mdOperation === 'multiplication') {
-      mdResult = multiply(a[mdIndex -1], a[mdIndex +1]);
+    if (next.operation === 'multiplication') {
+      mdResult = multiply(a[next.index -1], a[next.index +1]);
     } else {
-      mdResult = divide(a[mdIndex - 1], a[mdIndex + 1]);
+      mdResult = divide(a[next.index - 1], a[next.index + 1]);
     }
 
     if (mdResult === 'Cannot divide by zero') {
       return mdResult;
       break;
     } else {
-      a.splice(mdIndex - 1, 3, mdResult);
+      a.splice(next.index - 1, 3, mdResult);
     }
 
     console.log(mdResult);
-
-    multIndex = a.indexOf('*');
-    divIndex = a.indexOf('/');
-    mdIndex = null;
-    mdOperation = null;
-
-    // ignore index if not found
-    if ((multIndex > -1) || (divIndex > -1)) {
-      if (multIndex === -1) {
-        mdIndex = divIndex;
-        mdOperation = 'division';
-      } else if (divIndex === -1) {
-        mdIndex = multIndex;
-        mdOperation = 'multiplication';
-      } else {
-        mdIndex = multIndex < divIndex ? multIndex : divIndex;
-        mdOperation = multIndex < divIndex ? 'multiplication' : 'division';
-      }
-    }
+    next = determineNext(a.indexOf('*'),
+        'multiplication', a.indexOf('/'), 'division');
   }
 
-  // by this point same order multiplication
+  // at this point same order multiplication
   // division should have been resolved.
   // Proceeding with same order addition and subtraction
-
-  let addIndex = a.indexOf('+');
-  let subIndex = a.indexOf('-');
-  let asIndex = null;
-  let asOperation = null;
-
-  // ignore index if not found
-  if ((addIndex > -1) || (subIndex > -1)) {
-    if (addIndex === -1) {
-      asIndex = subIndex;
-      asOperation = 'subtraction';
-    } else if (subIndex === -1) {
-      asIndex = addIndex;
-      asOperation = 'addition';
-    } else {
-      asIndex = addIndex < subIndex ? addIndex : subIndex;
-      asOperation = addIndex < subIndex ? 'addition' : 'subtraction';
-    }
-  }
-
-  while (asIndex !== null) {
+  next = determineNext(a.indexOf('+'), 'addition',
+      a.indexOf('-'), 'subtraction');
+  while (next.index !== null) {
     // get Result of Operation
     let asResult = null;
-    if (asOperation === 'addition') {
-      asResult = add(a[asIndex -1], a[asIndex +1]);
+    if (next.operation === 'addition') {
+      asResult = add(a[next.index -1], a[next.index +1]);
     } else {
-      asResult = subtract(a[asIndex - 1], a[asIndex + 1]);
+      asResult = subtract(a[next.index - 1], a[next.index + 1]);
     }
     console.log(asResult);
-    a.splice(asIndex - 1, 3, asResult);
+    a.splice(next.index - 1, 3, asResult);
 
-    addIndex = a.indexOf('+');
-    subIndex = a.indexOf('-');
-    asIndex = null;
-    asOperation = null;
-
-    // ignore index if not found
-    if ((addIndex > -1) || (subIndex > -1)) {
-      if (addIndex === -1) {
-        asIndex = subIndex;
-        asOperation = 'subtraction';
-      } else if (subIndex === -1) {
-        asIndex = addIndex;
-        asOperation = 'addition';
-      } else {
-        asIndex = addIndex < subIndex ? addIndex : subIndex;
-        asOperation = addIndex < subIndex ? 'addition' : 'subtraction';
-      }
-    }
+    next = determineNext(a.indexOf('+'), 'addition',
+        a.indexOf('-'), 'subtraction');
   }
 
 
-  // by this point there should only be one element
+  // at this point there should only be one element
   return a[0];
 }
 
