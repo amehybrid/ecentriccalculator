@@ -17,10 +17,11 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-node
-npm
-npm install -g testcafe
-  see https://devexpress.github.io/testcafe/ for details
+1. node
+2. npm
+3. npm install -g testcafe
+see https://devexpress.github.io/testcafe/ for details
+4. see package.json
 
 ### Installing
 
@@ -73,12 +74,12 @@ or
 2. go to test_cafe folder then run
 
 for TEST:
-
-  testcafe chrome calculator-test.js
+testcafe chrome calculator-test.js
 
 for PROD
-  testcafe chrome calculator-prod.js
+testcafe chrome calculator-prod.js
 
+```
 example:
 
 PS D:\programming\ecentric\ecentriccalculator\test_cafe> testcafe chrome calculator-test.js
@@ -102,7 +103,7 @@ PS D:\programming\ecentric\ecentriccalculator\test_cafe> testcafe chrome calcula
 
 
  2 passed (8s)
-
+```
 
 ### And coding style tests
 
@@ -122,7 +123,7 @@ PS D:\programming\ecentric\ecentriccalculator>
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Clone Repository then persist node app.js. You may set process.env.PORT to your liking.
 
 ## Built With
 
