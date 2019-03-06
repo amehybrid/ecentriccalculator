@@ -139,8 +139,6 @@ function getResult(a) {
   // 2. Exponents
   // 3. Multiplication and Division (from left to right)
   // 4. Addition and Subtraction (from left to right)
-  console.log('getResult of');
-  console.log(a);
 
   // remove parenthesis by processing them
   let paren1Index = a.indexOf('(');
@@ -161,8 +159,6 @@ function getResult(a) {
       }
     }
 
-    console.log('paren2Index is ' + paren2Index);
-
     // get inside Paren
     const insideParenthesis = [];
     for (let x = paren1Index + 1; x < paren2Index; x++) {
@@ -171,7 +167,6 @@ function getResult(a) {
 
     // getResult
     const parenResult = getResult(insideParenthesis);
-    console.log( 'parenResult is:' + parenResult);
 
     if ((parenResult === 'Cannot divide by zero') ||
     (parenResult === 'Can not get root of a negative number')) {
@@ -181,7 +176,6 @@ function getResult(a) {
       // getResult of inside Parent and splice it on a
       a.splice(paren1Index, paren2Index - paren1Index + 1, parenResult);
       paren1Index = a.indexOf('(');
-      console.log(a);
     }
   }
 
@@ -194,8 +188,6 @@ function getResult(a) {
   while (exp1Index > -1) {
     // get exponent result
     const exResult = exponent( a[exp1Index - 1], a[exp1Index + 1] );
-
-    console.log(exResult);
 
     // replace the operator and number before and after it with the result
     a.splice( exp1Index - 1, 3, exResult );
@@ -253,7 +245,6 @@ function getResult(a) {
       a.splice(next.index - 1, 3, mdResult);
     }
 
-    console.log(mdResult);
     next = determineNext(a.indexOf('*'),
         'multiplication', a.indexOf('/'), 'division');
   }
@@ -271,9 +262,7 @@ function getResult(a) {
     } else {
       asResult = subtract(a[next.index - 1], a[next.index + 1]);
     }
-    console.log(asResult);
     a.splice(next.index - 1, 3, asResult);
-
     next = determineNext(a.indexOf('+'), 'addition',
         a.indexOf('-'), 'subtraction');
   }
