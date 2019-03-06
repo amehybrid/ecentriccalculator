@@ -64,11 +64,13 @@ describe("Calculator", function() {
       const result2 = calculator.divide(2.5, 9.4);
       const result3 = calculator.divide(3, '-3');
       const result4 = calculator.divide('2.5', '0');
+      const result5 = calculator.divide('6.6', '2.2');
 
       expect(result1).to.equal(1);
       expect(result2).to.equal(0.26595744680851063829787234042553);
       expect(result3).to.equal(-1);
       expect(result4).to.equal('Cannot divide by zero');
+      expect(result5).to.equal(3);
     });
   });
 
@@ -144,6 +146,7 @@ describe("Calculator", function() {
       const result10 = calculator.getResult(['(','(', 1, '+', 2, '^', '2' ,')' ,'+', '(', 25, '-', 2, '^', '3', '*', 2, ')', ')', '/', '(', '(', 3, '-', 2, ')', '+', '(', 31, '+', 0, ')', ')']);
       const result11 = calculator.getResult(calculator.preFormatOperations(['5', '(', '2', '+', '3', ')']));
       const result12 = calculator.getResult(calculator.preFormatOperations(['(', '2', '+', '4', ')', '(', '2', '+', '3', ')']));
+      const result13 = calculator.getResult(['3', '*', '(','1.5', '+', '2','^','2','*','3',')','/','4', '*', '(','5','-','4.5',')']);
 
       expect(result1).to.equal(2);
       expect(result2).to.equal(6);
@@ -157,6 +160,7 @@ describe("Calculator", function() {
       expect(result10).to.equal(0.4375);
       expect(result11).to.equal(25);
       expect(result12).to.equal(30);
+      expect(result13).to.equal(5.0625);
     });
   });
 
@@ -180,6 +184,13 @@ describe("Calculator", function() {
       const result1 = calculator.preFormatOperations(array1a);
       
       expect(JSON.stringify(result1)).to.equal(JSON.stringify(array1a));
+    });
+
+    it("3(1.5+2^2*3)/4(5-4.5)", function() {
+      const array1a = ['3','(','1.5', '+', '2','^','2','*','3',')','/','4','(','5','-','4.5',')'];
+      const array1b = ['3', '*', '(','1.5', '+', '2','^','2','*','3',')','/','4', '*', '(','5','-','4.5',')'];
+      const result1 = calculator.preFormatOperations(array1a);
+      expect(JSON.stringify(result1)).to.equal(JSON.stringify(array1b));
     });
   });  
 });

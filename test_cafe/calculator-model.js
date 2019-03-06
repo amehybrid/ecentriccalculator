@@ -25,5 +25,6 @@ export default class Page {
         this.btnEqual = Selector('#btn_equal');
         this.display1 = Selector('#display_1');
         this.display2 = Selector('#display_2');
+        this.btnDecimal = Selector('#btn_decimal');
     }
 }

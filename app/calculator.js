@@ -43,11 +43,12 @@ function subtract(a, b) {
 function multiply(a, b) {
   const number1 = parseFloat(a);
   const number2 = parseFloat(b);
-  const precisiona = precision(number1);
-  const precisionb = precision(number2);
-  const precisionc = precisiona > precisionb ?
-        precisiona : precisionb;
-  return parseFloat(( number1 * number2 ).toFixed(precisionc));
+  const ans = number1 * number2;
+  if (precision(ans) === 16) {
+    return Math.round(ans)
+  } else {
+    return ans
+  }
 }
 
 /**
@@ -58,8 +59,16 @@ function multiply(a, b) {
  * @return {number} - quotient
 */
 function divide(a, b) {
-  return parseFloat(b) === 0 ?
-    'Cannot divide by zero' : parseFloat(a) / parseFloat(b);
+  if (parseFloat(b) === 0) {
+    return 'Cannot divide by zero';
+  } else {
+    const ans = parseFloat(a) / parseFloat(b);
+    if (precision(ans) === 16) {
+      return Math.round(ans);
+    } else {
+      return ans;
+    }
+  }
 }
 
 /**
