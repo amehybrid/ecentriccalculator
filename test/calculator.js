@@ -129,4 +129,31 @@ describe("Calculator", function() {
       expect(result4).to.equal('Can not get root of a negative number');
     });
   });
+
+  describe("get result", function() {
+    it("process actions", function() {
+      const result1 = calculator.getResult([1,'+',1]);
+      const result2 = calculator.getResult(['3', '-', '2', '+', '5']);
+      const result3 = calculator.getResult([1, '+', 2, '*', '5']);
+      const result4 = calculator.getResult([10,'*', 2, '-', '9', '/', 3]);
+      const result5 = calculator.getResult([10,'*', 2, '-', '9', '/', 0]);
+      const result6 = calculator.getResult([1,'+','2','^',5]);
+      const result7 = calculator.getResult([1, '+', '2', '*','5','^',2]);
+      const result8 = calculator.getResult(['(','2', '+', '3', ')', '/', '5']);
+      const result9 = calculator.getResult(['(','(','2', '+', '3', ')', '/', '(', '5', '*', '2', ')', ')']);
+      const result10 = calculator.getResult(['(','(', 1, '+', 2, '^', '2' ,')' ,'+', '(', 25, '-', 2, '^', '3', '*', 2, ')', ')', '/', '(', '(', 3, '-', 2, ')', '+', '(', 31, '+', 0, ')', ')']);
+
+
+      expect(result1).to.equal(2);
+      expect(result2).to.equal(6);
+      expect(result3).to.equal(11);
+      expect(result4).to.equal(17);
+      expect(result5).to.equal('Cannot divide by zero');
+      expect(result6).to.equal(33);
+      expect(result7).to.equal(51);
+      expect(result8).to.equal(1);
+      expect(result9).to.equal(0.5);
+      expect(result10).to.equal(0.4375);
+    });
+  });
 });
