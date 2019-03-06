@@ -62,16 +62,25 @@ PS D:\programming\ecentric\ecentriccalculator\app> npm test
 ```
 
 ### Break down into end to end tests
+TEST calculator will be hosted on http://127.0.0.1:3100/calculator.html
+PROD calculator will be hosted on http://128.199.226.210:3100/calculator.html
 
-1. run server by running
+1. For TEST, run server by running
   node .
 or
   node app.js
 
-calculator will be hosted on http://127.0.0.1:3100/calculator.html
-
 2. go to test_cafe folder then run
-testcafe chrome calculator-test.js
+
+for TEST:
+
+  testcafe chrome calculator-test.js
+
+for PROD
+  testcafe chrome calculator-prod.js
+
+example:
+
 PS D:\programming\ecentric\ecentriccalculator\test_cafe> testcafe chrome calculator-test.js
 \
  Running tests in:
