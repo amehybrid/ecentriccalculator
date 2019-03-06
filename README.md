@@ -19,6 +19,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 node
 npm
+npm install -g testcafe
+  see https://devexpress.github.io/testcafe/ for details
 
 ### Installing
 
@@ -28,18 +30,12 @@ npm install
 
 npm test
 
-### Break down into end to end tests
-
-Unit Testing to ensure each part works
-
 ```
 Example:
 PS D:\programming\ecentric\ecentriccalculator\app> npm test
 
 > ecentriccalculator@1.0.0 test D:\programming\ecentric\ecentriccalculator
 > mocha --reporter spec
-
-
 
   Calculator
     Addition
@@ -64,6 +60,40 @@ PS D:\programming\ecentric\ecentriccalculator\app> npm test
 
   9 passing (24ms)
 ```
+
+### Break down into end to end tests
+
+1. run server by running
+  node .
+or
+  node app.js
+
+calculator will be hosted on http://127.0.0.1:3100/calculator.html
+
+2. go to test_cafe folder then run
+testcafe chrome calculator-test.js
+PS D:\programming\ecentric\ecentriccalculator\test_cafe> testcafe chrome calculator-test.js
+\
+ Running tests in:
+ - Chrome 72.0.3626 / Windows 10.0.0
+
+ Aaron Calculator
+ √ 12 plus 3
+
+
+ 1 passed (4s)
+PS D:\programming\ecentric\ecentriccalculator\test_cafe> testcafe chrome calculator-test.js
+\
+ Running tests in:
+ - Chrome 72.0.3626 / Windows 10.0.0
+
+ Aaron Calculator
+ √ 12 plus 3
+ √ 3 (1 + 2 ^ 2 * 3) / 4 ( 5 - 4 )
+
+
+ 2 passed (8s)
+
 
 ### And coding style tests
 
