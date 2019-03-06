@@ -126,7 +126,7 @@ class App extends React.Component {
     let current = history[history.length - 1];
     let operations = current.operations.slice();
 
-    if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 0].indexOf(i) > -1) {
+    if ([1, 2, 3, 4, 5, 6, 7, 8, 9, 0, '.'].indexOf(i) > -1) {
         if (current.cacheOperator) {
             if ((operations.length === 0) || (operations[operations.length - 1] === '(')) {
                 this.setState({
