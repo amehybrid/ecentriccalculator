@@ -1,9 +1,7 @@
 import Page from './calculator-model';
 
-fixture `Aaron Calculator Test`
-    .page `http://127.0.0.1:3100/calculator.html`;
-
-const page = new Page();
+fixture `Aaron Calculator Prod`
+    .page `http://128.199.226.210:3100/calculator.html`;
 
 test('12 plus 3', async t => {
     await t

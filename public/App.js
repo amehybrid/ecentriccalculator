@@ -19,7 +19,6 @@ class TextArea extends React.Component {
     }
 
     render() {
-      console.log(this.props)
       return (
         <div id={this.props.id} className="formula-display">
             {this.props.value}
@@ -72,7 +71,7 @@ class StandardCalc extends React.Component {
           {this.renderSquare('+', 'btn_add')}
         </div>
         <div className="standard-calc-row">
-          {this.renderSquare('CE')}
+          {this.renderSquare('C', 'btn_C')}
           {this.renderSquare(0, 'btn_0')}
           {this.renderSquare('.', 'btn_decimal')}
           {this.renderSquare('=', 'btn_equal')}
@@ -238,8 +237,18 @@ class App extends React.Component {
                 stepNumber: this.state.stepNumber + 1,
             })
         }
+    } else if (['C'].indexOf(i) > -1) {
+ 
+      this.setState({
+          history: history.concat([{
+              operations: [],
+              cacheNumber: '',
+              cacheOperator: '',
+              isDone: false,
+          }]),
+          stepNumber: this.state.stepNumber + 1,
+      }) 
     }
-
   }
 
   render() {
