@@ -1,5 +1,7 @@
 /** This is a calculator node js module  */
 
+const stringValidator = require('./string-validator');
+
 /**
  * adds two numbers. treat strings as float numbers.
  * @param {number|string} a - first number
@@ -272,6 +274,34 @@ function getResult(a) {
   return a[0];
 }
 
+/**
+ * Preformat Operation Array
+ * @param {array} a - array of operations
+ * @return {array} - result
+*/
+function preFormatOperations(a) {
+  const temp = [];
+  if (a.length <= 1) {
+    return a;
+  } else {
+    temp.push(a[0]);
+    for (let x = 1; x < a.length; x++) {
+      const prev = a[x - 1];
+      const current = a[x];
+
+      if ((prev === ')') && (current === '(')) {
+        temp.push('*');
+        temp.push(current);
+      } else if ((stringValidator.checkNumber(prev)) && (current === '(')) {
+        temp.push('*');
+        temp.push(current);
+      } else {
+        temp.push(current);
+      }
+    }
+    return temp;
+  }
+}
 
 const calculator = {
   add: add,
@@ -284,6 +314,7 @@ const calculator = {
   squareRoot: squareRoot,
   nthRoot: nthRoot,
   getResult: getResult,
+  preFormatOperations: preFormatOperations,
 };
 
 module.exports = calculator;

@@ -142,7 +142,8 @@ describe("Calculator", function() {
       const result8 = calculator.getResult(['(','2', '+', '3', ')', '/', '5']);
       const result9 = calculator.getResult(['(','(','2', '+', '3', ')', '/', '(', '5', '*', '2', ')', ')']);
       const result10 = calculator.getResult(['(','(', 1, '+', 2, '^', '2' ,')' ,'+', '(', 25, '-', 2, '^', '3', '*', 2, ')', ')', '/', '(', '(', 3, '-', 2, ')', '+', '(', 31, '+', 0, ')', ')']);
-
+      const result11 = calculator.getResult(calculator.preFormatOperations(['5', '(', '2', '+', '3', ')']));
+      const result12 = calculator.getResult(calculator.preFormatOperations(['(', '2', '+', '4', ')', '(', '2', '+', '3', ')']));
 
       expect(result1).to.equal(2);
       expect(result2).to.equal(6);
@@ -154,6 +155,31 @@ describe("Calculator", function() {
       expect(result8).to.equal(1);
       expect(result9).to.equal(0.5);
       expect(result10).to.equal(0.4375);
+      expect(result11).to.equal(25);
+      expect(result12).to.equal(30);
     });
   });
+
+  describe("preformat operations", function() {
+    it("adds * between consecutive ) and (", function() {
+      const array1a = ['(','1','+','2',')','(','3','+','4',')'];
+      const array1b = ['(','1','+','2',')','*','(','3','+','4',')']
+      const result1 = calculator.preFormatOperations(array1a);
+      expect(JSON.stringify(result1)).to.equal(JSON.stringify(array1b));
+    });
+
+    it("adds * between a number and (", function() {
+      const array1a = ['(','1','+','2','(','3','+','4',')'];
+      const array1b = ['(','1','+','2','*','(','3','+','4',')']
+      const result1 = calculator.preFormatOperations(array1a);
+      expect(JSON.stringify(result1)).to.equal(JSON.stringify(array1b));
+    });
+
+    it("does not add anything not needed", function() {
+      const array1a = ['(','1','+','2',')'];
+      const result1 = calculator.preFormatOperations(array1a);
+      
+      expect(JSON.stringify(result1)).to.equal(JSON.stringify(array1a));
+    });
+  });  
 });
