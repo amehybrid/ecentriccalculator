@@ -27,5 +27,7 @@ export default class Page {
         this.display2 = Selector('#display_2');
         this.btnDecimal = Selector('#btn_decimal');
         this.btnC = Selector('#btn_C');
+        this.btnSci = Selector('#btn_sci');
+        this.btnSin = Selector('#btn_sin');
     }
 }

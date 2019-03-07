@@ -1,4 +1,4 @@
-class StandardCalc extends React.Component {
+class ScientificCalc extends React.Component {
     renderTextArea(i, id) {
         return <TextArea value={i} id={id}/>;
     }
@@ -22,6 +22,24 @@ class StandardCalc extends React.Component {
           {this.renderSquare('sci', 'btn_sci')}
           {this.renderSquare('stat', 'btn_stat')}
           {this.renderSquare('prog', 'btn_prog')}
+        </div>
+        <div className="standard-calc-row">
+          {this.renderSquare('sin','btn_sin')}
+          {this.renderSquare('cos', 'btn_cos')}
+          {this.renderSquare('tan', 'btn_tan')}
+          {this.renderSquare('log', 'btn_log')}
+        </div>
+        <div className="standard-calc-row">
+          {this.renderSquare('csc','btn_csc')}
+          {this.renderSquare('sec', 'btn_sec')}
+          {this.renderSquare('cot', 'btn_cot')}
+          {this.renderSquare('10^x', 'btn_10tox')}
+        </div>
+        <div className="standard-calc-row">
+          {this.renderSquare('integ','btn_integ')}
+          {this.renderSquare('dv', 'btn_dv')}
+          {this.renderSquare('sqrt', 'btn_sqrt')}
+          {this.renderSquare('nroot', 'btn_nroot')}
         </div>
         <div className="standard-calc-row">
           {this.renderSquare('^','btn_exp')}

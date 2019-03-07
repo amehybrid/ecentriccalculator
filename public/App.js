@@ -164,6 +164,30 @@ class App extends React.Component {
           }]),
           stepNumber: this.state.stepNumber + 1,
       }) 
+    } else if (['std'].indexOf(i) > -1) {
+        this.setState({
+            calcType: 0,
+            history: history,
+            stepNumber: this.state.stepNumber,
+        }) 
+    } else if (['sci'].indexOf(i) > -1) {
+        this.setState({
+            calcType: 1,
+            history: history,
+            stepNumber: this.state.stepNumber,
+        }) 
+    } else if (['prog'].indexOf(i) > -1) {
+        this.setState({
+            calcType: 2,
+            history: history,
+            stepNumber: this.state.stepNumber,
+        }) 
+    } else if (['stat'].indexOf(i) > -1) {
+        this.setState({
+            calcType: 4,
+            history: history,
+            stepNumber: this.state.stepNumber,
+        }) 
     }
   }
 
@@ -179,15 +203,47 @@ class App extends React.Component {
     })
     const total = calculator.getResult(calculator.preFormatOperations(operations));
     const output = current.isDone ? total : current.cacheNumber;
-    return (
-      <div className="app">
-        <StandardCalc operations={current.operations}
-            display1={formula}
-            display2={output}
-            onClick={(i) => this.handleClick(i)}
-        />
-      </div>
-    );
+    if (this.state.calcType === 1) {
+        return (
+            <div className="app">
+              <ScientificCalc operations={current.operations}
+                  display1={formula}
+                  display2={output}
+                  onClick={(i) => this.handleClick(i)}
+              />
+            </div>
+          );
+    } else if (this.state.calcType === 2) {
+        return (
+            <div className="app">
+              <ProgrammableCalc operations={current.operations}
+                  display1={formula}
+                  display2={output}
+                  onClick={(i) => this.handleClick(i)}
+              />
+            </div>
+          );
+    } else if (this.state.calcType === 3) {
+        return (
+            <div className="app">
+              <StatisticalCalc operations={current.operations}
+                  display1={formula}
+                  display2={output}
+                  onClick={(i) => this.handleClick(i)}
+              />
+            </div>
+          );
+    } else {        
+      return (
+        <div className="app">
+          <StandardCalc operations={current.operations}
+              display1={formula}
+              display2={output}
+              onClick={(i) => this.handleClick(i)}
+          />
+        </div>
+      );
+    }
   }
 }
 

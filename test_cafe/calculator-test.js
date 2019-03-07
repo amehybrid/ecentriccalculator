@@ -97,3 +97,9 @@ test('RESET', async t => {
         .expect(page.display1.textContent).eql('3 ( 1 + 2 ^ 2 * 3 ) / 4 ( 5 - 4 )')
         .expect(page.display2.textContent).eql('9.75');
 });
+
+test('check sci button on toggle', async t => {
+    await t
+        .click(page.btnSci)
+        .expect(page.btnSin.textContent).eql('sin');
+});

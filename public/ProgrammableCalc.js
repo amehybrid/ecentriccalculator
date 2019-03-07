@@ -1,4 +1,4 @@
-class StandardCalc extends React.Component {
+class ProgrammableCalc extends React.Component {
     renderTextArea(i, id) {
         return <TextArea value={i} id={id}/>;
     }
